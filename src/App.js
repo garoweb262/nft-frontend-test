@@ -1,7 +1,9 @@
+import NftCard from "./component/NftCard";
+
 function App() {
   return (
-    <div className="App">
-      <h1 className="text-3xl font-mont font-bold underline">Hello world!</h1>
+    <div className="max-w-[1000px] mx-auto px-6">
+      <NftCard />
     </div>
   );
 }
