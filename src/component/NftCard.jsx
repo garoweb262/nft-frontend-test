@@ -11,6 +11,7 @@ const NftCard = () => {
       title: "#67900",
       description: "ByOthersideDeployer Otherdeed is the key to claiming",
       price: "1.795 ETH",
+      address: "DmMeOnTwitterOtc",
       link: "https://opensea.io/assets/ethereum/0x34d85c9cdeb23fa97cb08333b511ac86e1c4e258/67900",
     },
     {
@@ -18,6 +19,7 @@ const NftCard = () => {
       title: "#61313",
       description: "Owned by Shenlong- Otherdeed is the key to claiming",
       price: "18.5 ETH",
+      address: "Shenlong-",
       link: "https://opensea.io/assets/ethereum/0x34d85c9cdeb23fa97cb08333b511ac86e1c4e258/61313",
     },
     {
@@ -25,6 +27,7 @@ const NftCard = () => {
       title: "#75874",
       description: "Otherdeed is the key to claiming",
       price: "2.2 ETH",
+      address: "C-x",
       link: "https://opensea.io/assets/ethereum/0x34d85c9cdeb23fa97cb08333b511ac86e1c4e258/75874",
     },
     {
@@ -33,6 +36,7 @@ const NftCard = () => {
       description:
         "Otherdeed is the key to claiming land in Otherside. Each have a unique blend of ",
       price: "3.2 ETH",
+      address: "246B5D",
       link: "https://opensea.io/assets/ethereum/0x34d85c9cdeb23fa97cb08333b511ac86e1c4e258/65129",
     },
     {
@@ -41,6 +45,7 @@ const NftCard = () => {
       description:
         "Otherdeed is the key to claiming land in Otherside. Each have a unique blend of ",
       price: "2.5987 ETH",
+      address: "Cheapest-Blur",
       link: "https://opensea.io/assets/ethereum/0x34d85c9cdeb23fa97cb08333b511ac86e1c4e258/50604",
     },
     {
@@ -49,33 +54,26 @@ const NftCard = () => {
       description:
         "Otherdeed is the key to claiming land in Otherside. Each have a unique blend of environment and sediment",
       price: "23.9 ETH",
+      address: "777_vault",
       link: "https://opensea.io/assets/ethereum/0x34d85c9cdeb23fa97cb08333b511ac86e1c4e258/92938",
     },
   ];
-  // Find the tallest card and set its height to a variable
-  const cardHeights = cards.map((card) => {
-    const cardElement = document.createElement("div");
-    cardElement.className =
-      "bg-white w-60 sm:w-full h-full shadow-md rounded-xl animate__animated animate__slideInLeft cursor-pointer";
-    document.body.appendChild(cardElement);
-    const cardHeight = cardElement.getBoundingClientRect().height;
-    document.body.removeChild(cardElement);
-    return cardHeight;
-  });
-  const tallestCardHeight = Math.max(...cardHeights);
-  const [modalOpen, setModalOpen] = useState(false);
 
+  const [modalOpen, setModalOpen] = useState(false);
+  //nft details that is passed to the nft details components
   const [title, setTitle] = useState(null);
   const [price, setPrice] = useState(null);
   const [image, setImage] = useState(null);
   const [link, setLink] = useState(null);
+  const [address, setAddress] = useState(null);
   const [description, setDescription] = useState(null);
 
-  const openModal = (title, price, image, link, description) => {
+  const openModal = (title, price, image, link, address, description) => {
     setTitle(title);
     setPrice(price);
     setImage(image);
     setLink(link);
+    setAddress(address);
     setDescription(description);
     setModalOpen(true);
   };
@@ -83,16 +81,12 @@ const NftCard = () => {
   return (
     <>
       {/* the grid  */}
-      <div className="grid grid-cols-1 gap-2 my-5 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-2 my-5 lg:grid-cols-3 px-4 md:px-0">
         {cards.map((props, index) => (
-          <Card
-            key={index}
-            {...props}
-            style={{ height: tallestCardHeight }}
-            openModal={openModal}
-          />
+          <Card key={index} {...props} openModal={openModal} />
         ))}
       </div>
+      {/* modal that display the nft details */}
       <NftModal
         modalOpen={modalOpen}
         modalClose={closeModal}
@@ -103,6 +97,7 @@ const NftCard = () => {
             price={price}
             description={description}
             link={link}
+            address={address}
             closeModal={closeModal}
           />
         }
@@ -114,6 +109,9 @@ const NftCard = () => {
           width: [400, 600, 600],
           "@media (max-width: 600px)": {
             width: "90%",
+            height: "auto",
+            maxHeight: "calc(100vh - 120px)",
+            overflowY: "scroll",
             mt: 5,
             mb: 20,
           },
@@ -121,16 +119,26 @@ const NftCard = () => {
           borderRadius: "10px",
           boxShadow: 24,
           p: 0,
+          height: "auto",
+          maxHeight: "none",
         }}
       />
     </>
   );
 };
 //card component and passing the card details to props
-export function Card({ title, price, image, link, description, openModal }) {
+export function Card({
+  title,
+  price,
+  image,
+  link,
+  address,
+  description,
+  openModal,
+}) {
   return (
     <div
-      onClick={() => openModal(title, price, image, link, description)}
+      onClick={() => openModal(title, price, image, link, address, description)}
       className="bg-white w-60 sm:w-full h-full  shadow-md rounded-xl animate__animated animate__slideInLeft cursor-pointer"
     >
       <div className="flex flex-col space-x-2">
