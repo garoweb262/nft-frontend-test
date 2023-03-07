@@ -1,3 +1,4 @@
+//importing the nft card component
 import NftCard from "./component/NftCard";
 
 function App() {

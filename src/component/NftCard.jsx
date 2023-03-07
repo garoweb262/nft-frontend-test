@@ -4,6 +4,7 @@ import NftModal from "./NftModal";
 import NftDetails from "./NftDetails";
 
 const NftCard = () => {
+  //card detials
   const cards = [
     {
       image: `https://i.seadn.io/gcs/files/90f2c069b49665ed474213ea331762d2.jpg?auto=format&w=1000`,
@@ -81,6 +82,7 @@ const NftCard = () => {
   const closeModal = () => setModalOpen(false);
   return (
     <>
+      {/* the grid  */}
       <div className="grid grid-cols-1 gap-2 my-5 lg:grid-cols-3">
         {cards.map((props, index) => (
           <Card
@@ -124,7 +126,7 @@ const NftCard = () => {
     </>
   );
 };
-
+//card component and passing the card details to props
 export function Card({ title, price, image, link, description, openModal }) {
   return (
     <div
