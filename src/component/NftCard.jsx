@@ -81,7 +81,7 @@ const NftCard = () => {
   return (
     <>
       {/* the grid  */}
-      <div className="grid grid-cols-1 gap-2 my-5 lg:grid-cols-3 px-4 md:px-0">
+      <div className="grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 gap-2 my-5 md:px-4 px-8 md:px-0">
         {cards.map((props, index) => (
           <Card key={index} {...props} openModal={openModal} />
         ))}
